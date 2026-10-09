@@ -1688,12 +1688,21 @@ export default function HomePage() {
         const raw = textNode.textContent || "";
         const trimmed = raw.trim();
         if (!trimmed) return;
-        const translated = translateText(trimmed, lang);
-        if (translated !== trimmed) {
-          const leading = raw.slice(0, raw.indexOf(trimmed));
-          const trailing = raw.slice(raw.indexOf(trimmed) + trimmed.length);
-          textNode.textContent = `${leading}${translated}${trailing}`;
+
+        const parent = textNode.parentElement;
+        if (!parent) return;
+
+        let original = parent.getAttribute("data-tradex-original");
+        if (!original) {
+          original = trimmed;
+          parent.setAttribute("data-tradex-original", original);
         }
+
+        const translated = translateText(original, lang);
+        const finalText = lang === "ar" ? original : translated;
+        const leading = raw.slice(0, raw.indexOf(trimmed));
+        const trailing = raw.slice(raw.indexOf(trimmed) + trimmed.length);
+        textNode.textContent = `${leading}${finalText}${trailing}`;
       });
     }
   }, [lang]);
@@ -2670,7 +2679,7 @@ export default function HomePage() {
             </span>
 
             <span>
-              Crafted in Kuwait 🇰🇼
+              Crafted in Kuwait Under AICHOLDING  🇰🇼
             </span>
 
           </div>
