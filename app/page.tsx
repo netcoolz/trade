@@ -1603,6 +1603,7 @@ export default function HomePage() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lang, setLang] = useState<Lang>("ar");
+  const originalTextRef = useRef(new WeakMap<Text, string>());
 
   useEffect(() => {
     AOS.init({
@@ -1689,20 +1690,16 @@ export default function HomePage() {
         const trimmed = raw.trim();
         if (!trimmed) return;
 
-        const parent = textNode.parentElement;
-        if (!parent) return;
-
-        let original = parent.getAttribute("data-tradex-original");
+        let original = originalTextRef.current.get(textNode);
         if (!original) {
           original = trimmed;
-          parent.setAttribute("data-tradex-original", original);
+          originalTextRef.current.set(textNode, original);
         }
 
         const translated = translateText(original, lang);
-        const finalText = lang === "ar" ? original : translated;
         const leading = raw.slice(0, raw.indexOf(trimmed));
         const trailing = raw.slice(raw.indexOf(trimmed) + trimmed.length);
-        textNode.textContent = `${leading}${finalText}${trailing}`;
+        textNode.textContent = `${leading}${translated}${trailing}`;
       });
     }
   }, [lang]);
