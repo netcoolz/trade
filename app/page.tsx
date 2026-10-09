@@ -1498,7 +1498,7 @@ const uiTranslations: Record<string, string> = {
   "اكتشف TradeX": "Discover TradeX",
   "تحدث معنا": "Talk to Us",
   "شركة كويتية · Events × Digital": "Kuwaiti Company · Events × Digital",
-  "نصنع": "We Create",
+  ".": ".",
   "التجارب.": "Experiences.",
   "نبني الحلول.": "We Build Solutions.",
   "TradeX شركة كويتية تجمع بين قوة تنظيم وإنتاج الفعاليات والتقنيات الرقمية المتقدمة، لنحوّل الأفكار إلى تجارب مؤثرة وحلول تصنع فرقًا حقيقيًا.": "TradeX is a Kuwaiti company combining event management and production with advanced digital technologies to turn ideas into impactful experiences and solutions that make a real difference.",
